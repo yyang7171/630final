@@ -23,7 +23,17 @@ body {
   #explainer {
     color: #b50938;
   }
-  
+
+  #search {
+    display: flex;
+    flex-direction: column;
+    max-width: min-content;
+  }
+
+  #submit {
+    width: min-content;
+  }
+
   footer {
     position: absolute;
     bottom: 0;
