@@ -1,49 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
-      rel="icon"
-      href="https://cdn.glitch.global/93b4fa13-f003-46e7-97a1-58b77900a8ec/4e832a32789679.5694069db3b74.gif?v=1713393973245"
-    />
-    <title>kms</title>
-    <link rel="stylesheet" href="/style.css" />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css?family=DM+Sans"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css?family=Almarai"
-    />
-  </head>
-  <body>
-    <header id="header">
-      <h1 class="title">Art Insitute of Chicago</h1>
-    </header>
-    <div class="container">
-      <div id="explainer">
-        <p>
-          Art in the Art Institute of Chicago, using their
-          <a target="_blank" href="https://api.artic.edu/docs/">API</a>
-          and animated using the
-          <a target="_blank" href="https://gsap.com/">GSAP JS library</a>.
-        </p>
-      </div>
-      <div id="search">
-        <form class="mainform">
-          <label for="searchbox">search the museum api</label>
-          <input id="searchbox" type="text" type="searchbox">
-          <input id="submit" type="submit" value="search" />
-        </form>
-      </div>
-      <div id="results">
-      </div>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon"
+    href="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fclipground.com%2Fimages%2Fgreek-statues-png-8.png&f=1&nofb=1&ipt=36af25aa226fd933090412c56488706382fad0133a8d2b0de6c65fc010f9f1e5&ipo=images" />
+  <title>art institute of chicago</title>
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=DM+Sans" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Almarai" />
+</head>
+
+<body>
+  <header id="header">
+    <h1 class="title">Art Insitute of Chicago</h1>
+  </header>
+  <div class="container">
+    <div id="explainer">
+      <p>
+        Art in the Art Institute of Chicago, using their
+        <a target="_blank" href="https://api.artic.edu/docs/">API</a>
+        and animated using the
+        <a target="_blank" href="https://gsap.com/">GSAP JS library</a>.
+      </p>
     </div>
-    <script src="/script.js" type="module"></script>
-    <footer id="footer">
-      created by <a href="https://www.linkedin.com/in/yyang116/">yabing yang</a>
-    </footer>
-  </body>
+    <div id="search">
+      <form class="mainform">
+        <label for="searchbox">search the museum api</label>
+        <input id="searchbox" type="text" type="searchbox">
+        <button type="generate" id="searchQuery">search</button>
+      </form>
+    </div>
+    <div id="results">
+    </div>
+  </div>
+  <script src="/script.js" type="module"></script>
+  <!--<script src="myJS/gsap.min.js"></script>-->
+  <footer id="footer">
+    created by <a href="https://www.linkedin.com/in/yyang116/">yabing yang</a>
+  </footer>
+</body>
+
 </html>
