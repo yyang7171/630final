@@ -2,7 +2,26 @@
 async function fetchData(url) {
   const response = await fetch(url);
   const data = await response.json();
-  return data.data; // Assuming the API returns an object with a 'data' property containing the array of artworks
+  return data.data;
+}
+
+// Show all artworks and set up search functionality
+async function showAllArtworks() {
+  const artworks = await fetchData('https://api.artic.edu/api/v1/artworks?limit=100');
+  renderArtworks(artworks);
+
+  // Show search container and hide "Show All Artworks" button
+  document.getElementById('searchContainer').style.display = 'block';
+  document.getElementById('showAll').style.display = 'none';
+
+  // Add event listener to the search form
+  const searchForm = document.querySelector('.mainform');
+  searchForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const searchQuery = event.target.elements.searchbox.value.trim();
+    const filteredArtworks = filterArtworks(artworks, searchQuery);
+    renderArtworks(filteredArtworks);
+  });
 }
 
 // Render the artworks to the page
@@ -10,13 +29,24 @@ function renderArtworks(artworks) {
   const resultsContainer = document.getElementById('results');
   resultsContainer.innerHTML = '';
 
+  if (artworks.length === 0) {
+    resultsContainer.innerHTML = '<p>No results found.</p>';
+    return;
+  }
+
   artworks.forEach((artwork) => {
     const artworkElement = document.createElement('div');
+    artworkElement.classList.add('artwork-item');
+
+    let title = artwork.title.replace(' from Human_3.0 Reading List', '');
+    let artistTitle = artwork.artist_title ? artwork.artist_title.replace(' from Human_3.0 Reading List', '') : '';
+
     artworkElement.innerHTML = `
-      <h3>${artwork.title}</h3>
-      ${artwork.artist_title ? `<p>${artwork.artist_title}</p>` : ''}
-      <img src="${artwork.image_id ? `https://www.artic.edu/iiif/3/${artwork.image_id}/full/843,/0/default.jpg` : ''}" alt="${artwork.title}" />
+      <h3>${title}</h3>
+      ${artistTitle ? `<p>${artistTitle}</p>` : ''}
+      <img src="${artwork.image_id ? `https://www.artic.edu/iiif/3/${artwork.image_id}/full/843,/0/default.jpg` : ''}" alt="${title}" />
     `;
+
     resultsContainer.appendChild(artworkElement);
   });
 }
@@ -31,26 +61,8 @@ function filterArtworks(artworks, searchQuery) {
   return filteredArtworks;
 }
 
-// Main function
-async function main() {
-  const artworks = await fetchData('https://api.artic.edu/api/v1/artworks?limit=100');
-
-  // Render all artworks initially
-  //renderArtworks(artworks);
-  //   searchInput.value = ''; // Clear the search input field after initial render
-
-  // Add event listener to the search form
-  const searchForm = document.querySelector('.mainform');
-  searchForm.addEventListener('submit', (event) => {
-    event.preventDefault(); // Prevent the form from submitting and refreshing the page
-
-    const searchInput = document.getElementById('searchbox');
-    const searchQuery = searchInput.value.trim();
-    const filteredArtworks = filterArtworks(artworks, searchQuery);
-    renderArtworks(filteredArtworks);
-    // searchInput.value = ''; // Clear the search input field after performing a search
-  });
-}
-
 // Initialize the app
-document.addEventListener('DOMContentLoaded', main);
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('showAllButton').addEventListener('click', showAllArtworks);
+  document.getElementById('searchContainer').style.display = 'none';
+});
