@@ -11,6 +11,17 @@ header {
   padding: 1em 0.5rem 0 0.5rem;
 }
 
+.header-link {
+  text-decoration: none; /* Remove underline */
+  color: inherit; /* Inherit the color from the parent element */
+}
+
+.header-link:hover,
+.header-link:focus,
+.header-link:active {
+  color: inherit; /* Prevent color change on hover/focus/active */
+}
+
 .container {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
