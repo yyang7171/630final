@@ -5,25 +5,6 @@ async function fetchData(url) {
   return data.data;
 }
 
-// Show all artworks and set up search functionality
-async function showAllArtworks() {
-  const artworks = await fetchData('https://api.artic.edu/api/v1/artworks?limit=100');
-  renderArtworks(artworks);
-
-  // Show search container and hide "Show All Artworks" button
-  document.getElementById('searchContainer').style.display = 'block';
-  document.getElementById('showAll').style.display = 'none';
-
-  // Add event listener to the search form
-  const searchForm = document.querySelector('.mainform');
-  searchForm.addEventListener('submit', (event) => {
-    event.preventDefault();
-    const searchQuery = event.target.elements.searchbox.value.trim();
-    const filteredArtworks = filterArtworks(artworks, searchQuery);
-    renderArtworks(filteredArtworks);
-  });
-}
-
 // Render the artworks to the page
 function renderArtworks(artworks) {
   const resultsContainer = document.getElementById('results');
@@ -62,7 +43,29 @@ function filterArtworks(artworks, searchQuery) {
 }
 
 // Initialize the app
-document.addEventListener('DOMContentLoaded', () => {
-  document.getElementById('showAllButton').addEventListener('click', showAllArtworks);
-  document.getElementById('searchContainer').style.display = 'none';
+document.addEventListener('DOMContentLoaded', async () => {
+  // Check if the current page is artworks.html
+  if (window.location.pathname.includes('/artworks.html')) {
+    const artworks = await fetchData('https://api.artic.edu/api/v1/artworks?limit=100');
+
+    // Show the search container immediately
+    document.getElementById('searchContainer').style.display = 'block';
+
+    const searchForm = document.querySelector('.mainform');
+    searchForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const searchQuery = event.target.elements.searchbox.value.trim();
+      const filteredArtworks = filterArtworks(artworks, searchQuery);
+      renderArtworks(filteredArtworks);
+    });
+
+    // Render all artworks initially
+    renderArtworks(artworks);
+  }
+
+  // Refresh the page when the header link is clicked
+  document.getElementById('headerLink').addEventListener('click', (event) => {
+    event.preventDefault(); // Prevent the default link behavior
+    location.reload(); // Refresh the page
+  });
 });
